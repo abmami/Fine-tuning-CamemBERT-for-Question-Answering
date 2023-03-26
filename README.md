@@ -67,3 +67,19 @@ You should see the home page of the Flask app. Enter a question and context in t
 
 ![alt text](demo/demo.png)
 
+
+
+@ARTICLE{2020arXiv200206071
+       author = {{Martin}, d'Hoffschmidt and {Maxime}, Vidal and
+         {Wacim}, Belblidia and {Tom}, Brendlé},
+        title = "{FQuAD: French Question Answering Dataset}",
+      journal = {arXiv e-prints},
+     keywords = {Computer Science - Computation and Language},
+         year = "2020",
+        month = "Feb",
+          eid = {arXiv:2002.06071},
+        pages = {arXiv:2002.06071},
+archivePrefix = {arXiv},
+       eprint = {2002.06071},
+ primaryClass = {cs.CL}
+}
