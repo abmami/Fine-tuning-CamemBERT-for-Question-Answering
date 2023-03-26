@@ -18,7 +18,11 @@ You can install the required Python packages using pip after creating a virtual 
 ```bash
   pip install -r requirements.txt
 ```
-
+*Note:* 
+If there is matching distribution found for "torch==2.0.0+cu117", you can install using this command:*
+```bash
+  pip install torch==2.0.0+cu117 -f https://download.pytorch.org/whl/cu117/torch_stable.html 
+```
 
 ### Prepare datasets
 To prepare and split the data stored at "data/raw/", run the make_dataset.py script
