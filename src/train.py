@@ -36,22 +36,15 @@ def main():
     "best_model_dir": f"models/{model_name}/best_model",
     "evaluate_during_training": True,
     "max_seq_length": 128,
-    "num_train_epochs": 5,
+    "num_train_epochs": 10, # Takes too long to train ~3 hours
     "evaluate_during_training_steps": 1000,
     "use_wandb": False,
     "save_model_every_epoch": False,
     "save_eval_checkpoints": False,
-    "n_best_size":3,
+    "n_best_size":3, # The total number of n-best predictions to generate in the nbest_predictions.json output file.
     "train_batch_size": 16, # Reduced to 16 after getting CUDA out of memory error
     "eval_batch_size": 16, # Reduced to 16 after getting CUDA out of memory error
     }
-
-    # Configure the model 
-    model_args = QuestionAnsweringArgs()
-    model_args.train_batch_size = 16
-    model_args.evaluate_during_training = True
-    model_args.n_best_size=3
-    model_args.num_train_epochs=5
 
     # Create a QuestionAnsweringModel
     model = QuestionAnsweringModel(
@@ -62,10 +55,10 @@ def main():
 
     # Evaluate the model
     result, texts = model.eval_model(valid)
-    with open('results.json', 'w') as f:
+    with open(f"models/{model_name}/evalu_results.json", 'w') as f:
         json.dump(result, f, indent=2, ensure_ascii=False)
     
-    print('Results are saved to results.json')
+    print(f'Results are saved to models/{model_name}/evalu_results.json')
 
 
 if __name__ == "__main__":
