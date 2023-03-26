@@ -14,7 +14,7 @@ The CamemBERT model was fine-tuned on this dataset to create a French question-a
 - CUDA 11.7 (Download from [here](https://developer.nvidia.com/cuda-11-7-0-download-archive?target_os=Windows&target_arch=x86_64&target_version=11&target_type=exe_local))
 - Torch 2.0.0 
 
-You can install the required Python packages using pip:
+You can install the required Python packages using pip after creating a virtual environment:
 ```bash
   pip install -r requirements.txt
 ```
