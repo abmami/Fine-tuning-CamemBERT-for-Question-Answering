@@ -55,6 +55,8 @@ Example:
 ```bash
 Output: Answer: ['', 'début des années 1920.']
 ```
+Note: The answer to the question in the example is obviously wrong, but the model should give better results if trained for more epochs. In this example, the model was trained for 5 epochs only.
+
 ### Demo
 
 The fine-tuned CamemBERT model was deployed using Flask. You can try the demo by running app.py
@@ -70,19 +72,5 @@ You should see the home page of the Flask app. Enter a question and context in t
 
 ### References 
 
-```
-@ARTICLE{2020arXiv200206071
-       author = {{Martin}, d'Hoffschmidt and {Maxime}, Vidal and
-         {Wacim}, Belblidia and {Tom}, Brendlé},
-        title = "{FQuAD: French Question Answering Dataset}",
-      journal = {arXiv e-prints},
-     keywords = {Computer Science - Computation and Language},
-         year = "2020",
-        month = "Feb",
-          eid = {arXiv:2002.06071},
-        pages = {arXiv:2002.06071},
-archivePrefix = {arXiv},
-       eprint = {2002.06071},
- primaryClass = {cs.CL}
-}
-```
+FQuAD: French Question Answering Dataset - 2020arXiv200206071
+
