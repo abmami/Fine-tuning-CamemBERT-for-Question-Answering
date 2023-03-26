@@ -22,9 +22,12 @@ def main(context, question):
     }
     ]
 
-    predictions = model.predict(to_predict)
-    answer = predictions[0][0]['answer']
-    print("Answer:", answer)
+    predictions, raw_outputs = model.predict(to_predict)
+    predictions = predictions[0]['answer']
+    probability = raw_outputs[0]['probability']
+    index = probability.index(max(probability))
+    print(f"Answer: {predictions[index]}")
+
 
 
 if __name__ == "__main__":
