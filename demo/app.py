@@ -1,27 +1,22 @@
-from flask import Flask, jsonify, render_template, request
-from simpletransformers.question_answering import QuestionAnsweringModel
-import os 
-project_path = os.path.join(os.path.dirname(__file__), os.pardir)
-app = Flask('demo', template_folder='')
-# Set the root path explicitly
-#app.root_path = project_path + '/demo'
-# Load the Camembert model
+from fastapi import FastAPI, Request, Form
+from fastapi.templating import Jinja2Templates
+from pydantic import BaseModel
+import uvicorn
+import simpletransformers as st
+from simpletransformers.question_answering import QuestionAnsweringModel, QuestionAnsweringArgs
+from fastapi.staticfiles import StaticFiles
+app = FastAPI()
+templates = Jinja2Templates(directory="demo/templates")
+
+app.mount("/static", StaticFiles(directory="demo/static"), name="static")
 model = QuestionAnsweringModel('camembert', 'models/camembert-base/best_model', args={'use_multiprocessing': False})
 
-# Serve the index.html file on the main page
-@app.route('/')
-def index():
-    return render_template('index.html')
+class QARequest(BaseModel):
+    question: str
+    context: str
 
-# Define a predict endpoint for the API
-@app.route('/predict', methods=['POST'])
-def predict():
-    # Get the input question and context from the request
-    data = request.get_json()
-    question = data['question']
-    context = data['context']
-    
-    # Use the fine-tuned model to predict the answer
+
+def make_prediction(context, question):
     to_predict = [
     {
         "context": context,
@@ -32,15 +27,24 @@ def predict():
             }
         ],
     }
-]
-    predictions = model.predict(to_predict)
-    answer = predictions[0][0]['answer']
-    
-    # Return the predicted answer as a JSON response
-    return jsonify({'answer': answer})
+    ]
+    predictions, raw_outputs = model.predict(to_predict)
+    predictions = predictions[0]['answer']
+    probability = raw_outputs[0]['probability']
+    index = probability.index(max(probability))
+    return predictions[index]
 
-if __name__ == '__main__':
-    print("Starting Flask server...")
-    print("Loading the Camembert model...")
-    print("App is running on http://localhost:5000")
-    app.run(debug=True)
+@app.get("/")
+async def index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+@app.post("/predict")
+async def predict(qa_request: QARequest):
+    question = qa_request.question
+    context = qa_request.context
+    answer = make_prediction(context, question)
+    return {"answer": answer}
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, port=8000)

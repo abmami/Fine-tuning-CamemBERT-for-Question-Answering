@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Question Answering Demo</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://kit.fontawesome.com/6710f7b4b5.js" crossorigin="anonymous"></script>
+	<!-- load css file from static -->
+	<link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+
+
+</head>
+
+<body>
+	<div class="container my-5">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-header text-center">
+						<h1>Question Answering Demo</h1>
+					</div>
+					<div class="card-body">
+						<form id="qa-form">
+							<div class="form-group">
+								<label for="question">Question</label>
+								<input type="text" class="form-control" id="question" name="question" required>
+							</div>
+							<div class="form-group">
+								<label for="context">Context</label>
+								<textarea class="form-control" id="context" name="context" rows="5" required></textarea>
+							</div>
+							<button type="submit" class="btn btn-success btn-block">Ask Me</button>
+						</form>
+						<div id="answer-div" class="mt-4" style="display:none">
+							<h3 class="text-center">Answer</h3>
+							<p id="answer" class="text-center"></p>
+						</div>
+						<div class="loader" id="loader" style="display:none"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<script src="{{ url_for('static', path='script.js') }}"></script>
+
+
+</body>
+</html>
