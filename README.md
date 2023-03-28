@@ -26,9 +26,10 @@ Install the required Python packages using pip:
 ```
 
 ### Prepare datasets
-To prepare and split the data stored at "data/raw/", run the make_dataset.py script
+Download the FQuAD dataset from [here](https://fquad.illuin.tech/), then move the json files to data/raw/.  
+To prepare a subset of the data and split it into train and validation sets, run the make_dataset.py script.
 ```bash
-  python src/make_dataset.py -i data.json
+  python src/make_dataset.py -i train.json
 ```
 
 ### Fine-tuning
