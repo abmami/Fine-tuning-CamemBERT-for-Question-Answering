@@ -1,12 +1,12 @@
 Fine-tuning CamemBERT on a subset of FQuAD dataset for Question Answering
 ==============================
 
-This repository contains code for fine-tuning CamemBERT, a French version of the BERT language model, on a portion of the FQuAD (French Question Answering Dataset) for Question Answering (QA) tasks.
+This repository contains code for a fine-tuning experiment of [CamemBERT](https://camembert-model.fr/), a French version of the BERT language model, on a portion of the [FQuAD](https://fquad.illuin.tech/) (French Question Answering Dataset) for Question Answering tasks.
 
 ### Dataset
 The FQuAD dataset is a collection of questions and answers in French. It contains over 25,000 question-answer pairs and covers a wide range of topics, including history, science, and literature. 
 
-The CamemBERT model was fine-tuned on this dataset to create a French question-answering system. Due to the high computation requirements of the model, a CUDA-enabled GPU was used to train and evaluate the model, and only a subset of the dataset containing ~4,500 question-answer pairs was used.
+The CamemBERT model was fine-tuned on this dataset to create a French question-answering system. Due to the high computation requirements of the fine-tuning process, a CUDA-enabled GPU was used to train the model for 10 epochs on a subset of the dataset containing ~4,500 question-answer pairs. 
 
 ### Requirements 
 - Python 3.10
@@ -50,23 +50,20 @@ The predict.py script loads the saved model from the models/ directory and uses 
 
 Example: 
 ```bash
-   python src/predict.py --question "Quand le Doric est-il livré ?" --context "Avant la Première Guerre mondiale, l'International Mercantile Marine Co. commande aux chantiers Harland & Wolff la construction de plusieurs navires destinés à ses compagnies. Les deux premiers, le Regina et le Pittsburgh ébauchés en 1913, sont achevés après la guerre et mis en service au début des années 1920. Le Doric est le troisième navire construit sur ce modèle et un quatrième, légèrement plus grand, le Laurentic, suivra en 1927. La quille du Doric est posée bien après la guerre, en 1921, et sa construction est rapide, puisqu'il est lancé dès le 8 août 1922 et livré le 29 mai 1923."
+   python src/predict.py --question "Comment s'appelle le troisième navire commandé ?" --context "Avant la Première Guerre mondiale, l'International Mercantile Marine Co. commande aux chantiers Harland & Wolff la construction de plusieurs navires destinés à ses compagnies. Les deux premiers, le Regina et le Pittsburgh ébauchés en 1913, sont achevés après la guerre et mis en service au début des années 1920. Le Doric est le troisième navire construit sur ce modèle et un quatrième, légèrement plus grand, le Laurentic, suivra en 1927. La quille du Doric est posée bien après la guerre, en 1921, et sa construction est rapide, puisqu'il est lancé dès le 8 août 1922 et livré le 29 mai 1923."
 ```
+
 ```bash
-Output: Answer: ['', 'début des années 1920.']
+Output: Answer: Le Doric
 ```
-Note: The answer to the question in the example is obviously wrong, but the model should give better results if trained for more epochs. In this example, the model was trained for 5 epochs only.
 
 ### Demo
 
-The fine-tuned CamemBERT model was deployed using Flask. You can try the demo by running app.py
+The fine-tuned CamemBERT model was deployed using FastAPI. You can try the demo by running app.py
 ```bash
   python demo/app.py
 ```
-Once the server is running, open a web browser and go to the URL http://localhost:5000.
-
-You should see the home page of the Flask app. Enter a question and context in the input fields and click on the "Ask Me" button to see the predicted answer.
-
+Once the server is running, open a web browser and go to [http://127.0.0.1:8000](http://127.0.0.1:8000)
 ![alt text](demo/demo.png)
 
 
